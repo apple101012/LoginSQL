@@ -14,7 +14,14 @@
     include_once 'header.php';
     ?>
     <div class="wrap">
-        <div class="mid">Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident iusto vero nesciunt non nostrum eaque, libero ullam asperiores id ratione.</div>
+        <div class="signupform mid">
+            <h1>Log In</h1>
+            <form action="login.inc.php" method="post">
+                <input type="text" name="name" placeholder="Username/Email...">
+                <input type="password" name="pwd" placeholder="Password...">
+                <button type="submit" name="submit">Log in</button>
+            </form>
+        </div>
     </div>
 </body>
 
