@@ -21,6 +21,18 @@
                 <input type="password" name="pwd" placeholder="Password...">
                 <button type="submit" name="submit">Log in</button>
             </form>
+            <?php
+            if (isset($_GET["error"])) {
+                if ($_GET["error"] == "emptyinput") {
+                    echo '<div class="error" style = "color:red;">Fill in all the fields</div>';
+                } else if ($_GET['error'] == "usernotfound") {
+                    echo '<div class="error" style = "color:red;">Invalid username</div>';
+                } else if ($_GET['error'] == "wrongpassword") {
+                    echo '<div class="error" style = "color:red;">Incorrect Password/div>';
+                }
+            }
+
+            ?>
         </div>
     </div>
 </body>
