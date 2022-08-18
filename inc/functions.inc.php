@@ -1,6 +1,6 @@
 <?php
-
-function emptyInputSignup($name, $email, $username, $pwd, $pwdrepeat)
+//TRUE IS BAD FOR THESE FUNCTIONS
+function emptyInputSignup($name, $email, $username, $pwd, $pwdrepeat) // checks empty sign up
 {
     if (empty($name) || empty($email) || empty($username) || empty($pwd) || empty($pwdrepeat)) {
         $results = true;
@@ -12,7 +12,7 @@ function emptyInputSignup($name, $email, $username, $pwd, $pwdrepeat)
 
 function invalidUid($username)
 {
-    if (!preg_match("/^[a-zA-Z0-9]*$/", $username)) {
+    if (!preg_match("/^[a-zA-Z0-9]*$/", $username)) { //checks to make sure username is a-z and 0-9
         $results = true;
     } else {
         $results = false;
@@ -21,7 +21,7 @@ function invalidUid($username)
 }
 function invalidEmail($email)
 {
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) { //this is function to check that the text is a email
         $result = true;
     } else {
         $result = false;
@@ -30,7 +30,7 @@ function invalidEmail($email)
 }
 function pwdMatch($pwd, $pwdrepeat)
 {
-    if ($pwd !== $pwdrepeat) {
+    if ($pwd !== $pwdrepeat) { //simple check the passwords to see if they match
         $result = true;
     } else {
         $result = false;
@@ -41,33 +41,33 @@ function uidExists($conn, $username, $email)
 {
     $sql = "SELECT * FROM USERS WHERE usersUid = ? OR usersEmail = ?;"; //question mark
     $stmt = mysqli_stmt_init($conn);
-    if (!mysqli_stmt_prepare($stmt, $sql)) {
+    if (!mysqli_stmt_prepare($stmt, $sql)) { //checks to see if the statement is valid
         header("location: ../signup.php?error=stmtfailed");
         exit();
     }
-    mysqli_stmt_bind_param($stmt, "ss", $username, $email); //replaces the question mark
-    mysqli_stmt_execute($stmt);
+    mysqli_stmt_bind_param($stmt, "ss", $username, $email); //replaces the question mark in encrypted way
+    mysqli_stmt_execute($stmt);  //now stmt has the data
 
-    $resultData = mysqli_stmt_get_result($stmt);
-    if ($row = mysqli_fetch_assoc($resultData)) {
-        return $row;
+    $resultData = mysqli_stmt_get_result($stmt); //get result
+    if ($row = mysqli_fetch_assoc($resultData)) { //makes the result into array row['usersId']
+        return $row; //for the signup if it has data is returns error but this normally returns array
     } else {
         $result = false;
         return $result;
     }
-    mysqli_stmt_close($stmt);
+    mysqli_stmt_close($stmt); //always close connection
 }
 
 function createUser($conn, $name, $email, $username, $pwd)
 {
-    $sql = "INSERT INTO USERS(usersName, usersEmail, usersUid, usersPwd) VALUES(?, ?, ?, ?);";
-    $stmt = mysqli_stmt_init($conn);
-    if (!mysqli_stmt_prepare($stmt, $sql)) {
+    $sql = "INSERT INTO USERS(usersName, usersEmail, usersUid, usersPwd) VALUES(?, ?, ?, ?);"; //question marks again
+    $stmt = mysqli_stmt_init($conn); //start the connection
+    if (!mysqli_stmt_prepare($stmt, $sql)) { //test the sql works
         header("location: ../signup.php?error=stmtfailed");
         exit();
     }
-    $hashedPwd = password_hash($pwd, PASSWORD_DEFAULT);
-    mysqli_stmt_bind_param($stmt, "ssss", $name, $email, $username, $hashedPwd);
+    $hashedPwd = password_hash($pwd, PASSWORD_DEFAULT); //one-way hash magic
+    mysqli_stmt_bind_param($stmt, "ssss", $name, $email, $username, $hashedPwd); //replaces each questionmark
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
     header("location: ../signup.php?error=none");
