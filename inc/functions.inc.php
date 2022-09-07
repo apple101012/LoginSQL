@@ -73,7 +73,7 @@ function createUser($conn, $name, $email, $username, $pwd)
     header("location: ../signup.php?error=none");
     exit();
 }
-function emptyInputLogin($username, $password)
+function emptyInputLogin($username, $password) //check if username blank
 {
     if (empty($username) || empty($password)) {
         $result = true;
@@ -82,19 +82,19 @@ function emptyInputLogin($username, $password)
     }
     return $result;
 }
-function loginUser($conn, $username, $pwd)
+function loginUser($conn, $username, $pwd) //this logins the user
 {
-    $uidExists = uidExists($conn, $username, $username);
+    $uidExists = uidExists($conn, $username, $username); //checks if the person exists
     if ($uidExists === false) {
         header("location: ../login.php?error=usernotfound");
         exit();
     }
     $pwdHased = $uidExists["usersPwd"];
-    $checkPwd = password_verify($pwd, $pwdHased);
+    $checkPwd = password_verify($pwd, $pwdHased); //checks the password
     if ($checkPwd === false) {
         header("location: ../login.php?error=wrongpassword");
         exit();
-    } else if ($checkPwd === true) {
+    } else if ($checkPwd === true) { //creates a session
         session_start();
         $_SESSION["userid"] = $uidExists["usersId"];
         $_SESSION["useruid"] = $uidExists["usersUid"];
