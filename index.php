@@ -14,7 +14,14 @@
     include_once 'header.php';
     ?>
     <div class="wrap">
-        <div class="mid">Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident iusto vero nesciunt non nostrum eaque, libero ullam asperiores id ratione.</div>
+        <div class="mid">This project is a demonstration of a login and signup system utilizing css, html, php, and SQL.
+            <?php
+            if (isset($_SESSION["useruid"])) {
+                echo "<br></br><span style=color:green> Welcome " . $_SESSION["useruid"] . ".</span>";
+            }
+            ?>
+
+        </div>
     </div>
 </body>
 
