@@ -42,7 +42,7 @@ function uidExists($conn, $username, $email)
     $sql = "SELECT * FROM USERS WHERE usersUid = ? OR usersEmail = ?;"; //question mark
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) { //checks to see if the statement is valid
-        header("location: ../signup.php?error=stmtfailed");
+        header("location: ../login.php?error=stmtfailed");
         exit();
     }
     mysqli_stmt_bind_param($stmt, "ss", $username, $email); //replaces the question mark in encrypted way
