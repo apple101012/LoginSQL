@@ -1,9 +1,9 @@
 <?php
 
 $serverName = "localhost";
-$dBUsername = "root";
-$dbPassword = "";
-$dBName = "test";
+$dBUsername = "uobeleyhxcau8";
+$dbPassword = "trashcan123";
+$dBName = "dbwataur0ygaz5";
 
 $conn = mysqli_connect($serverName, $dBUsername, $dbPassword, $dBName);
 if (!$conn) {
