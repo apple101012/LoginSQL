@@ -37,7 +37,7 @@
                 } else if ($_GET['error'] == "usernametaken") {
                     echo '<div class="error" style = "color:red;">Username already taken</div>';
                 } else if ($_GET['error'] == "none") {
-                    echo '<div class="error" style = "color:green;">Log in successful</div>';
+                    echo '<div class="error" style = "color:green;">Sign up successful</div>';
                 }
             }
             ?>
